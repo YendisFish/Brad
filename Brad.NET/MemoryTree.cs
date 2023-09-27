@@ -23,9 +23,12 @@ public unsafe class MemoryTree
             return n;
         } else {
             Node n = new Node((byte *)init, sizeof(T) * length, isRef, this, null);
+            roots.Add(n);
             return n;
         }
     }
+
+    public Node? CreateRefStruct<T>() { return null; }
 }
 
 public unsafe class Node
