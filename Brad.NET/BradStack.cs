@@ -29,6 +29,8 @@ public unsafe struct BradStack
         byte *current = &stack[pos];
         segments.Add(new KeyValuePair<int, int>(pos, size));
 
+        BradStack.GlobalPos = pos + size;
+
         return current;
     }
 
