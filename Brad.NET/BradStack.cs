@@ -38,6 +38,7 @@ public unsafe struct BradStack
     {
         for(int i = 0; i < segments.Count; i++)
         {
+            Console.WriteLine(((IntPtr) Peek(i)).ToString() + " " + ((IntPtr) _ref).ToString());
             if(Peek(i) == _ref)
             {
                 return true;
