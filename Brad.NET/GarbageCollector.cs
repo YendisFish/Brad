@@ -81,6 +81,7 @@ public unsafe class GarbageCollector
     {
         if(parent.mark == 0)
         {
+            Console.WriteLine("boutta free");
             Marshal.FreeHGlobal((IntPtr)parent.ptr);
         }
 
@@ -95,6 +96,7 @@ public unsafe class GarbageCollector
 
                 parent.children[i].mark = 0;
             } else {
+                Console.WriteLine("boutta free");
                 Marshal.FreeHGlobal((IntPtr)parent.children[i].ptr);
                 parent.children.Remove(parent.children[i]);
             }

@@ -16,7 +16,7 @@ public unsafe class MemoryTree
     {
         if(isRef == 1)
         {
-            Node n = new Node(null, 1, isRef, this, null);
+            Node n = new Node(null, sizeof(byte *), isRef, this, null);
             n.AppendReference((byte **)init, sizeof(T) * length);
 
             roots.Add(n);
@@ -28,7 +28,16 @@ public unsafe class MemoryTree
         }
     }
 
-    public Node? CreateRefStruct<T>() { return null; }
+    // structs are of predefined size... inline buffers MUST also have a predefined size
+    public Node CreateRefStruct(int byteSize) 
+    {
+        byte **stackSpace = (byte **)gc.StackAlloc<byte>(sizeof(byte *));
+        
+        Node n = new Node(null, sizeof(byte *), 1, this, null);
+        n.AppendReference(stackSpace, byteSize);
+
+        return n;
+    }
 }
 
 public unsafe class Node
